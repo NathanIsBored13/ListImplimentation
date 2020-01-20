@@ -12,22 +12,41 @@ namespace ListImplimentation
 
         public bool IsEmpty() => head == null;
 
-        public int GetLength()
-        {
-            int i = 0;
-            if (!IsEmpty()) i = head.GetLength(i);
-            return i;
-        }
+        public int GetLength() => head == null ? 0 : head.GetLength(1);
 
         public int Get(int position)
         {
             int ret;
             if (IsEmpty())
             {
-                Console.WriteLine("list empty");
+                Console.WriteLine("element does not exist");
                 ret = -1;
             }
             else ret = head.Get(position);
+            return ret;
+        }
+
+        public bool Search(int value)
+        {
+            bool ret;
+            if (IsEmpty())
+            {
+                Console.WriteLine("element does not exist");
+                ret = false;
+            }
+            else ret = head.Search(value);
+            return ret;
+        }
+
+        public int Index(int value)
+        {
+            int ret;
+            if (IsEmpty())
+            {
+                Console.WriteLine("element does not exist");
+                ret = -1;
+            }
+            else ret = head.Index(1, value);
             return ret;
         }
 
@@ -61,16 +80,22 @@ namespace ListImplimentation
             head = null;
         }
 
-        public void Remove()
+        public void Remove(int value)
         {
-            if (IsEmpty()) Console.WriteLine("list already empty");
-            else if (head.Remove()) head = null;
+            if (IsEmpty()) Console.WriteLine("itme does not exist");
+            else if (head.Remove(value)) head = head.GetChild();
         }
 
-        public void RemoveAt(int position)
+        public void Pop()
+        {
+            if (IsEmpty()) Console.WriteLine("list already empty");
+            else if (head.Pop()) head = null;
+        }
+
+        public void Pop(int position)
         {
             if (position == 0) head = head.GetChild();
-            else head.RemoveAt(position - 1);
+            else head.Pop(position - 1);
         }
     }
 }
